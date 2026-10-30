@@ -16,12 +16,12 @@ spec:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8001"
-        prometheus.io/path: "/"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
         - name: streamlit
-          image: ishranaznin/heart-disease-api:latest
-          imagePullPolicy: Always
+          image: arushspam/heart-disease-api:latest
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8501   # Streamlit UI
             - containerPort: 8001   # Prometheus metrics
@@ -31,7 +31,7 @@ spec:
               cpu: "250m"
             limits:
               memory: "512Mi"
-              cpu: "510m"
+              cpu: "500m"
           livenessProbe:
             httpGet:
               path: /_stcore/health

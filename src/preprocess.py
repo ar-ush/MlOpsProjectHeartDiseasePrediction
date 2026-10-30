@@ -12,7 +12,7 @@ import joblib
 
 
 def load_params(params_path: str = "params.yaml") -> dict:
-    with open(params_path, "r") as f:
+    with open(params_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 

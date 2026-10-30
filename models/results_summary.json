@@ -1,6 +1,6 @@
 {
   "champion": "LogisticRegression",
-  "champion_run_id": "c406c1fc406841f9a95ff330bb4c34aa",
+  "champion_run_id": "a12812d1c47146d998260aed2f8320b3",
   "champion_metric": "f1_score",
   "champion_score": 0.84,
   "model_path": "models/champion_model.pkl",
@@ -15,7 +15,7 @@
   "sklearn_version": "1.4.2",
   "all_results": {
     "LogisticRegression": {
-      "run_id": "c406c1fc406841f9a95ff330bb4c34aa",
+      "run_id": "a12812d1c47146d998260aed2f8320b3",
       "metrics": {
         "accuracy": 0.8519,
         "precision": 0.8077,
@@ -25,7 +25,7 @@
       }
     },
     "RandomForest": {
-      "run_id": "e699d2b0197b4fbd849bf037cf79f7fd",
+      "run_id": "ba2da4926bb44e13bef7f31a0d7cc368",
       "metrics": {
         "accuracy": 0.8148,
         "precision": 0.7692,
@@ -35,7 +35,7 @@
       }
     },
     "AdaBoost": {
-      "run_id": "9d50e39661f9476a844ab32d0b8eac79",
+      "run_id": "0af39089b1f84973844907b0455fd110",
       "metrics": {
         "accuracy": 0.7407,
         "precision": 0.6923,
@@ -45,5 +45,5 @@
       }
     }
   },
-  "status": "candidate"
+  "status": "champion"
 }

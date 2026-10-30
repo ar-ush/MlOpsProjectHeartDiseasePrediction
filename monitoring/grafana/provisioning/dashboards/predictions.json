@@ -16,7 +16,6 @@
       "id": 2, "type": "timeseries", "title": "Prediction Rate (per minute)",
       "gridPos": {"x": 0, "y": 4, "w": 24, "h": 8},
       "targets": [
-        {"expr": "rate(predictions_total[1m]) * 60", "legendFormat": "API /predict", "datasource": "Prometheus"},
         {"expr": "rate(streamlit_predictions_total[1m]) * 60", "legendFormat": "Streamlit UI", "datasource": "Prometheus"}
       ]
     }

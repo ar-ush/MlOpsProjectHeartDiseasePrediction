@@ -22,7 +22,7 @@ from sklearn.metrics import (
 
 
 def load_params(params_path: str = "params.yaml") -> dict:
-    with open(params_path, "r") as f:
+    with open(params_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -186,7 +186,7 @@ def train_all(params: dict):
             k: {"run_id": v["run_id"], "metrics": v["metrics"]}
             for k, v in results.items()
         },
-        "status": "candidate"
+        "status": "champion"
     }
     os.makedirs(os.path.dirname(results_out), exist_ok=True)
     with open(results_out, "w") as f:
@@ -206,30 +206,6 @@ def train_all(params: dict):
 
     print("\n[train] Done!")
     
-    os.makedirs("models", exist_ok=True)
-    # Simulate a simple registry
-    registry_path = "models/results_summary.json"
-    
-    
-
-    if os.path.exists(registry_path):
-        with open(registry_path, "r") as f:
-            current_champion = json.load(f)
-        # Replace champion only if the new model has better F1
-        if summary["champion_score"] > current_champion.get("champion_score", 0):
-            summary["status"] = "champion"
-            with open(registry_path, "w") as f:
-                json.dump(summary, f, indent=4)
-            print("New model promoted to champion.")
-        else:
-            print("Current champion retained.")
-    else:
-        summary["status"] = "champion"
-        with open(registry_path, "w") as f:
-            json.dump(summary, f, indent=4)
-        print("No champion existed. New model set as champion.")
-        print("Training complete.")
-        print("Metrics:", metrics)   
     return summary
 
 

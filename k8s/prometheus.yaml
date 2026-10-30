@@ -15,13 +15,4 @@ data:
       - job_name: 'heart-disease-streamlit'
         static_configs:
           - targets: ['heart-disease-streamlit-service:8001']
-        metrics_path: /metrics    
-
-      # Auto-discover all pods with prometheus.io/scrape=true annotation
-      - job_name: 'kubernetes-pods'
-        kubernetes_sd_configs:
-          - role: pod
-        relabel_configs:
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-            action: keep
-            regex: "true"
+        metrics_path: /metrics

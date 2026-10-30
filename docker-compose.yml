@@ -1,13 +1,11 @@
 #Orchestrates both services together so a single docker compose up starts everything.
 
-version: "3.9"
-
 services:
   streamlit:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
-    image: ishranaznin/heart-disease-api:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: arushspam/heart-disease-api:latest
     container_name: heart-streamlit
     ports:
       - "8501:8501"   # Streamlit UI 

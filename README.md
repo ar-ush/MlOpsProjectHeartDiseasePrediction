@@ -213,21 +213,21 @@ Quality gate (F1 ≥ 0.75 — pipeline fails if not met)
       ↓
 Build Docker image with champion model
       ↓
-Push to Docker Hub (ishranaznin/heart-disease-api:latest)
+Push to Docker Hub (arushspam/heart-disease-api:latest)
 ```
 
-The workflow is defined in `.github/workflows/mlops_pipeline.yml`. The Docker build job has an explicit `needs: train` dependency, so a failing model blocks image publication. Secrets required: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`.
+The workflow is defined in `.github/workflows/mlops_pipeline.yml`. The Docker build job has an explicit `needs: train` dependency, so a failing model blocks image publication. A third job spins up a throwaway `kind` Kubernetes cluster and applies `k8s/` as a deploy smoke test. Secrets required: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`.
 
 ---
 
 ## Monitoring
 
-Every prediction made through the Streamlit UI increments a Prometheus counter `predictions_total`. Prometheus scrapes the metrics endpoint on port `8001` every 15 seconds.
+Every prediction made through the Streamlit UI increments a Prometheus counter `streamlit_predictions_total`. Prometheus scrapes the metrics endpoint on port `8001` every 15 seconds.
 
 To query prediction rate in the Prometheus UI ([http://localhost:9090](http://localhost:9090)):
 
 ```promql
-rate(predictions_total[5m]) * 60
+rate(streamlit_predictions_total[5m]) * 60
 ```
 
 The Grafana dashboard (**Dashboards → Heart Disease MLOps**) shows:
@@ -257,5 +257,5 @@ All pipeline behaviour is controlled through `params.yaml`. Key sections:
 The pre-built image is available on Docker Hub:
 
 ```bash
-docker pull ishranaznin/heart-disease-api:latest
+docker pull arushspam/heart-disease-api:latest
 ```

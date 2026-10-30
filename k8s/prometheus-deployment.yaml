@@ -25,7 +25,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: prometheus-config   # this already exists in your prometheus.yaml
+            name: prometheus-config   # defined in k8s/prometheus.yaml
 ---
 apiVersion: v1
 kind: Service

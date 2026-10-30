@@ -1,0 +1,10 @@
+# Runtime dependencies for the Streamlit container (training/dev tools excluded).
+# Versions must match requirements.txt so the pickled model loads.
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.4.2
+joblib==1.4.2
+PyYAML==6.0.2
+packaging==24.1
+streamlit==1.36.0
+prometheus-client==0.20.0

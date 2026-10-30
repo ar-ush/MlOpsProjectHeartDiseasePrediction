@@ -18,7 +18,6 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 from prometheus_client import Counter, start_http_server, REGISTRY
-import threading
 
 
 
@@ -36,7 +35,7 @@ PARAMS_PATH = os.path.join(_ROOT, "params.yaml")
 
 @st.cache_data(show_spinner=False)
 def load_params():
-    with open(PARAMS_PATH) as f:
+    with open(PARAMS_PATH, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -59,16 +58,14 @@ st.set_page_config(
 
 @st.cache_resource
 def _start_metrics_server():
-    """Start Prometheus metrics server exactly once, in a background thread."""
+    """Start the Prometheus metrics server once per process (not per browser session)."""
     try:
         start_http_server(8001)
     except OSError:
-        pass   # already running
+        pass   # port already bound (e.g. script re-run in the same process)
+    return True
 
-# Use st.session_state to ensure counter and server start only once per session
-if "metrics_initialized" not in st.session_state:
-    threading.Thread(target=_start_metrics_server, daemon=True).start()
-    st.session_state.metrics_initialized = True
+_start_metrics_server()
 
 
 @st.cache_resource

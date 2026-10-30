@@ -43,6 +43,7 @@ Thumbs.db
 .coverage
 htmlcov/
 
-# Docker
-.dockerignore
-README.md
+# Local pipeline cache
+.pipeline_cache/
+.claude/
+mlflow.db

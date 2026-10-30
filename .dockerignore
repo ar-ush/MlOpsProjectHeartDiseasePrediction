@@ -1,0 +1,16 @@
+.git
+.github
+.dvc
+.claude
+.pipeline_cache
+data/raw
+mlruns
+mlartifacts
+k8s
+monitoring
+__pycache__
+*.pyc
+venv
+.venv
+README.md
+docker-compose.yml

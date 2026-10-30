@@ -17,7 +17,6 @@ import warnings
 import numpy as np
 import pandas as pd
 import streamlit as st
-from prometheus_client import Counter, start_http_server, REGISTRY
 
 
 
@@ -26,6 +25,7 @@ from prometheus_client import Counter, start_http_server, REGISTRY
 # ── Ensure src/ is on path so model_utils imports cleanly ────────────────────
 sys.path.insert(0, os.path.dirname(__file__))
 from model_utils import load_model_bundle
+from metrics import PREDICTION_COUNTER, start_metrics_server
 
 # ── params.yaml path: works whether you run from project root or src/ ────────
 _HERE = os.path.dirname(os.path.abspath(__file__))
@@ -56,26 +56,8 @@ st.set_page_config(
 )
 
 
-@st.cache_resource
-def _start_metrics_server():
-    """Start the Prometheus metrics server once per process (not per browser session)."""
-    try:
-        start_http_server(8001)
-    except OSError:
-        pass   # port already bound (e.g. script re-run in the same process)
-    return True
-
-_start_metrics_server()
-
-
-@st.cache_resource
-def get_counter():
-    return Counter(
-        "streamlit_predictions_total",
-        "Total predictions made via Streamlit UI"
-    )
-
-PREDICTION_COUNTER = get_counter()
+# Metrics server is normally started by src/entrypoint.py; this covers `streamlit run` in dev.
+start_metrics_server()
 
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
